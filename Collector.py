@@ -4,14 +4,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.firefox.options import Options
-import sys
-import time
-import calendar
-import urllib
+import sys, time, urllib, calendar, os
+
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs", prefs)
+chrome_options.headless = True
 
 
 class CollectPosts(object):
@@ -21,7 +21,7 @@ class CollectPosts(object):
         self.out_file = file
         self.depth = depth + 1
         self.delay = delay
-        self.browser = webdriver.Chrome(chrome_options=chrome_options, executable_path="C:\webdriver\chromedriver.exe")
+        self.browser = webdriver.Chrome(chrome_options=chrome_options, executable_path=f"{CURRENT_PATH}/chromedriver/chromedriver.exe")
 
 
     def safe_find_element_by_id(self, elem_id):
